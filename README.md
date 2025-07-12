@@ -1,5 +1,5 @@
 # 💫 About Me:
-I'm currently studying on PENS (Computer Engineering)<br>I’m currently learning JavaScript, TypeScript, and Go
+Recently graduated with a Bachelor of Applied Computer Engineering from the Electronics Engineering Polytechnic Institute of Surabaya. Passionate about writing clean and maintainable code that enhances both the performance and scalability of web applications.
 
 
 ## 🌐 Socials:
