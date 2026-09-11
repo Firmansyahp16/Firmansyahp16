@@ -453,7 +453,8 @@ Beberapa tujuan yang ingin dicapai lewat Loom:
 
 **Stack utama**
 - **TypeScript**
-- **Bun** — sebagai runtime
+- **Hono** — sebagai framework utama
+- **Zod** - sebagai schema dan validator
 - **MongoDB** — sebagai database
 
 **Alternatif stack yang juga dieksplorasi**
