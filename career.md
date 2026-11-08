@@ -1,91 +1,71 @@
-# Catatan Pengalaman Karier
-### Perjalanan dari Remote Developer menuju Senior Developer
+# Catatan Pengalaman Karier: Perjalanan dari Remote Developer menuju Senior Developer
 
 ---
 
-## Ringkasan Singkat
+## Abstrak
 
-| | |
+Dokumen ini memaparkan perjalanan karier seorang pengembang perangkat lunak pada satu perusahaan yang sama, dari posisi Remote Developer selama kurang lebih satu tahun hingga posisi Senior Developer pada saat ini. Sistem yang ditangani melayani lebih dari 5.000 pengguna harian dengan volume transaksi ratusan hingga jutaan ringgit per hari pada periode live funding. Pada fase Remote Developer, penulis berfokus pada pembangunan fondasi sistem, migrasi dari platform legacy, serta perancangan arsitektur yang skalabel. Pada fase Senior Developer, penulis memegang kepemilikan penuh atas sistem produksi, yang mencakup penanganan masalah (troubleshooting), pemeliharaan business logic, integritas data, implementasi flow baru (Checker Flow), dan penulisan ulang (rewrite) backend berskala besar. Di luar pekerjaan utama, penulis mengembangkan Loom, yaitu framework pribadi untuk membangun REST API secara lebih cepat dan terstandarisasi.
+
+**Kata kunci:** backend engineering, migrasi sistem, arsitektur queue dan worker, production ownership, Checker Flow, compatibility engineering, REST API
+
+## Ringkasan Data
+
+| Aspek | Keterangan |
 |---|---|
-| **Perusahaan** | Sama untuk kedua posisi |
-| **Durasi sebagai Remote Developer** | ± 1 tahun |
-| **Posisi saat ini** | Senior Developer |
-| **Skala sistem** | 5.000+ pengguna harian, transaksi ratusan hingga jutaan ringgit per hari ketika live funding |
-
-Secara garis besar, perjalanan kariernya dapat diringkas sebagai berikut:
-
-> Sebagai **Remote Developer**, ia membangun fondasi sistem, melakukan migrasi dari platform legacy, dan merancang arsitektur untuk skalabilitas.
-> Sebagai **Senior Developer**, ia memegang kepemilikan penuh atas sistem produksi: troubleshooting, business logic, integritas data, flow baru seperti Checker Flow, dan rewrite backend berskala besar.
-
-Di luar pekerjaan utama, ia juga sedang mengembangkan **Loom**, sebuah framework pribadi untuk membangun REST API secara lebih cepat dan terstandarisasi (dijelaskan pada Bagian IV).
+| Perusahaan | Sama untuk kedua posisi |
+| Durasi sebagai Remote Developer | ± 1 tahun |
+| Posisi saat ini | Senior Developer |
+| Skala sistem | 5.000+ pengguna harian; transaksi ratusan hingga jutaan ringgit per hari ketika live funding |
 
 ---
 
-# Bagian I — Remote Developer (± 1 Tahun)
+# Bagian I: Fase Remote Developer (± 1 Tahun)
 
-**Fokus utama:** pengembangan backend/API, migrasi sistem, pemrosesan asynchronous, performance engineering, pengembangan dashboard, testing, monitoring, dan deployment.
-
-Pada fase ini, fokusnya adalah **membangun dan memperkuat fondasi sistem** — mulai dari migrasi legacy code, pengembangan dashboard, peningkatan performa, hingga membangun arsitektur untuk pemrosesan asynchronous dan skalabilitas jangka panjang.
+Fokus utama pada fase ini adalah pengembangan backend/API, migrasi sistem, pemrosesan asynchronous, performance engineering, pengembangan dashboard, pengujian, monitoring, dan deployment. Secara umum, fase ini diarahkan pada pembangunan dan penguatan fondasi sistem, mulai dari migrasi legacy code, pengembangan dashboard, peningkatan performa, hingga perancangan arsitektur untuk pemrosesan asynchronous dan skalabilitas jangka panjang.
 
 ## 1. Migrasi Arsitektur Backend
 
-Ia memigrasi sistem legacy dari **LoopBack 3 ke LoopBack 4** menggunakan **TypeScript**, mencakup:
+Sistem legacy dimigrasikan dari LoopBack 3 ke LoopBack 4 dengan menggunakan TypeScript. Pekerjaan ini mencakup:
 
-- Migrasi menyeluruh codebase dari LoopBack 3 ke LoopBack 4
-- Refactoring model, repository, controller, dan service
-- Penyesuaian ulang relasi antar-model
-- Perbaikan penerapan *dependency injection*
-- Penegakan prinsip *separation of concerns*
-- Restrukturisasi endpoint agar lebih modular
-- Pengurangan technical debt dari codebase lama
-- Menjaga kompatibilitas dengan sistem yang sudah berjalan
-- Pengembangan dan pemeliharaan REST API untuk kebutuhan internal maupun client-facing
+- migrasi menyeluruh codebase dari LoopBack 3 ke LoopBack 4;
+- refactoring model, repository, controller, dan service;
+- penyesuaian ulang relasi antar-model;
+- perbaikan penerapan *dependency injection*;
+- penegakan prinsip *separation of concerns*;
+- restrukturisasi endpoint agar lebih modular;
+- pengurangan technical debt pada codebase lama;
+- pemeliharaan kompatibilitas dengan sistem yang sudah berjalan; dan
+- pengembangan serta pemeliharaan REST API untuk kebutuhan internal maupun client-facing.
 
-Baginya, migrasi ini bukan sekadar perpindahan framework, melainkan kesempatan untuk merombak struktur backend agar lebih maintainable dan scalable dalam jangka panjang.
+Migrasi ini dipandang tidak hanya sebagai perpindahan framework, tetapi juga sebagai kesempatan untuk merombak struktur backend agar lebih mudah dipelihara (maintainable) dan dikembangkan (scalable) dalam jangka panjang.
 
 ## 2. Autentikasi dan Keamanan API
 
-Ia menyelesaikan dan memelihara lapisan autentikasi pada API.
+Lapisan autentikasi pada API diselesaikan dan dipelihara oleh penulis.
 
-**JWT Authentication**
-- Mengimplementasikan JWT sebagai mekanisme autentikasi utama
-- Mengoptimalkan alur autentikasi lintas layanan API
-- Menangani autentikasi untuk berbagai dashboard
-- Menerapkan otorisasi sesuai kebutuhan masing-masing aplikasi
+**JWT Authentication.** JWT diimplementasikan sebagai mekanisme autentikasi utama. Alur autentikasi lintas layanan API dioptimalkan, autentikasi untuk berbagai dashboard ditangani, dan otorisasi diterapkan sesuai kebutuhan masing-masing aplikasi.
 
-**HMAC Authentication**
-- Dikembangkan khusus untuk endpoint dan integrasi tertentu yang tidak menggunakan alur JWT standar
+**HMAC Authentication.** Mekanisme ini dikembangkan khusus untuk endpoint dan integrasi tertentu yang tidak menggunakan alur JWT standar.
 
-**Cakupan tambahan yang ditangani:**
-- Validasi request
-- Otorisasi
-- Penanganan edge case
-- Error handling
-- Konsistensi response saat autentikasi/otorisasi gagal
+**Cakupan tambahan** meliputi validasi request, otorisasi, penanganan edge case, error handling, dan konsistensi response ketika autentikasi atau otorisasi gagal.
 
 ## 3. Performance Engineering pada Skala Besar
 
-Sistem yang ditanganinya melayani **5.000+ pengguna harian** dengan volume transaksi **ratusan hingga jutaan ringgit per hari** ketika live funding, sehingga performa menjadi prioritas utama.
+Sistem melayani lebih dari 5.000 pengguna harian dengan volume transaksi ratusan hingga jutaan ringgit per hari ketika live funding, sehingga performa menjadi prioritas utama.
 
-**Redis sebagai caching layer**
-- Mengurangi query database yang berulang
-- Menekan beban database
-- Mempercepat response time API
-- Mengatur cache expiration dan invalidation
-- Menjaga keseimbangan antara performa dan konsistensi data
+**Redis sebagai caching layer.** Penggunaan Redis bertujuan mengurangi query database yang berulang, menekan beban database, dan mempercepat response time API. Cache expiration dan invalidation diatur untuk menjaga keseimbangan antara performa dan konsistensi data.
 
-**Pemrosesan asynchronous**
-Proses yang membutuhkan waktu lama dialihkan dari alur synchronous menuju arsitektur:
+**Pemrosesan asynchronous.** Proses yang memerlukan waktu lama dialihkan dari alur synchronous ke arsitektur berikut:
 
 ```
 API → Queue → Worker
 ```
 
-sehingga API utama tetap responsif terhadap pengguna.
+Dengan demikian, API utama tetap responsif terhadap pengguna.
 
-## 4. Arsitektur Queue & Worker
+## 4. Arsitektur Queue dan Worker
 
-Ia mengerjakan sistem **Queue & Worker** menggunakan **Redis** dan **BullMQ**, dengan satu codebase yang memiliki dua entry point berbeda:
+Sistem Queue dan Worker dibangun dengan Redis dan BullMQ. Satu codebase digunakan dengan dua entry point berbeda, sebagaimana ditunjukkan pada Gambar 1.
 
 ```
                     ┌─────────────────────┐
@@ -106,79 +86,66 @@ Ia mengerjakan sistem **Queue & Worker** menggunakan **Redis** dan **BullMQ**, d
                     └─────────────────────┘
 ```
 
-**`application.ts`** — entry point untuk API utama, penambahan job ke queue, dan penanganan request synchronous.
+*Gambar 1. Arsitektur Queue dan Worker dengan dua entry point.*
 
-**`worker.ts`** — entry point khusus untuk mengambil job dari Redis, menjalankan proses asynchronous, background process, serta scheduled/cron task.
+- `application.ts` berfungsi sebagai entry point untuk API utama, penambahan job ke queue, dan penanganan request synchronous.
+- `worker.ts` berfungsi sebagai entry point khusus untuk mengambil job dari Redis serta menjalankan proses asynchronous, background process, dan scheduled/cron task.
 
-**Deployment:** API dan worker dijalankan pada container terpisah, tetap dalam satu codebase namun dengan entry point dan peran deployment yang berbeda — sehingga beban kerja API dan background processing dapat dipisah secara jelas.
+Pada tahap deployment, API dan worker dijalankan pada container terpisah, meskipun tetap berada dalam satu codebase. Pemisahan ini memungkinkan beban kerja API dan background processing dipisahkan secara jelas.
 
-## 5. Background Processing & Cron Jobs
+## 5. Background Processing dan Cron Jobs
 
-Worker dimanfaatkan untuk menjalankan berbagai proses yang tidak perlu dijalankan secara synchronous oleh API, antara lain:
-
-- Asynchronous jobs
-- Background tasks
-- Cron jobs
-- Batch processing
-- Notification processing
-- Scheduled jobs
-- Automated system jobs
-
-Tujuannya: memindahkan beban kerja berat dari API agar request utama tidak perlu menunggu proses tersebut selesai.
+Worker dimanfaatkan untuk menjalankan proses yang tidak perlu dieksekusi secara synchronous oleh API, antara lain asynchronous jobs, background tasks, cron jobs, batch processing, notification processing, scheduled jobs, dan automated system jobs. Tujuannya adalah memindahkan beban kerja berat dari API sehingga request utama tidak perlu menunggu proses tersebut selesai.
 
 ## 6. Arsitektur Multi-Dashboard
 
-Ia menyelesaikan pembaruan backend untuk mendukung beberapa dashboard dengan kebutuhan berbeda:
+Pembaruan backend diselesaikan untuk mendukung beberapa dashboard dengan kebutuhan berbeda, yaitu satu dashboard operasional/internal dan sekitar enam dashboard client untuk kebutuhan investor/issuer. Cakupan pekerjaannya meliputi:
 
-- 1 dashboard operasional/internal
-- ± 6 dashboard client untuk kebutuhan investor/issuer
-
-**Cakupan pekerjaannya:**
-- Endpoint sesuai kebutuhan masing-masing dashboard
-- Role dan permission
-- Autentikasi dan otorisasi
-- Segmentasi data berdasarkan channel
-- Business logic yang reusable
-- Integrasi API dan frontend
+- endpoint sesuai kebutuhan masing-masing dashboard;
+- role dan permission;
+- autentikasi dan otorisasi;
+- segmentasi data berdasarkan channel;
+- business logic yang reusable; dan
+- integrasi API dan frontend.
 
 Fokus utamanya adalah menjaga agar seluruh dashboard tetap menggunakan pattern backend yang konsisten.
 
 ## 7. Pengembangan Frontend
 
-Meski fokus utamanya adalah backend, ia juga terlibat langsung dalam pengembangan frontend menggunakan **React, TanStack, DaisyUI,** dan **Tailwind CSS** — mencakup dashboard internal, integrasi REST API, data fetching, state management, form handling, presentasi data tabular, serta komponen reusable untuk mendukung alur kerja operasional.
+Meskipun fokus utama berada pada backend, penulis terlibat langsung dalam pengembangan frontend dengan React, TanStack, DaisyUI, dan Tailwind CSS. Pekerjaan tersebut mencakup dashboard internal, integrasi REST API, data fetching, state management, form handling, presentasi data tabular, dan komponen reusable untuk mendukung alur kerja operasional.
 
 ## 8. Migrasi ± 200 Form
 
-Ia memimpin migrasi sekitar **200 form** dari **react-hook-form ke TanStack Form**. Pekerjaan ini tidak sebatas mengganti library, tetapi juga melakukan refactoring menyeluruh terhadap arsitektur form:
+Migrasi sekitar 200 form dari react-hook-form ke TanStack Form dipimpin oleh penulis. Pekerjaan ini tidak terbatas pada penggantian library, tetapi juga mencakup refactoring menyeluruh terhadap arsitektur form, yaitu:
 
-- Migrasi dan refactoring logic form
-- Validasi dan error handling
-- Standardisasi komponen form reusable
-- Pengurangan duplikasi logic secara signifikan
+- migrasi dan refactoring logic form;
+- validasi dan error handling;
+- standardisasi komponen form yang reusable; dan
+- pengurangan duplikasi logic secara signifikan.
 
 ## 9. Penerapan Atomic Design
 
-Ia melakukan refactoring UI dengan pendekatan **Atomic Design** untuk menghasilkan komponen yang lebih reusable, mengurangi duplikasi UI, menstandarkan design pattern, dan mempermudah pengembangan serta maintenance fitur ke depannya.
+Refactoring UI dilakukan dengan pendekatan Atomic Design untuk menghasilkan komponen yang lebih reusable, mengurangi duplikasi UI, menstandarkan design pattern, dan mempermudah pengembangan serta pemeliharaan fitur ke depan.
 
-## 10. Migrasi Svelte → React
+## 10. Migrasi Svelte ke React
 
-Ia terlibat dalam proses porting aplikasi dari **Svelte ke React**, termasuk integrasi dengan **Directus CMS** — mencakup migrasi komponen, penyesuaian alur data/state, integrasi API, dan penyesuaian arsitektur komponen, sambil memastikan behavior aplikasi tetap konsisten pasca-migrasi.
+Penulis terlibat dalam proses porting aplikasi dari Svelte ke React, termasuk integrasi dengan Directus CMS. Pekerjaan ini mencakup migrasi komponen, penyesuaian alur data dan state, integrasi API, serta penyesuaian arsitektur komponen, dengan tetap memastikan bahwa behavior aplikasi konsisten setelah migrasi.
 
-## 11. MongoDB & Data Layer
+## 11. MongoDB dan Data Layer
 
-**MongoDB** menjadi database utama sistem yang ditanganinya. Pekerjaannya mencakup desain schema/model, relasi antar-model, serta integrasi dengan LoopBack 4 dan Redis — dengan tujuan menjaga efisiensi akses data seiring pertumbuhan volume pengguna dan transaksi.
+MongoDB merupakan database utama pada sistem yang ditangani. Pekerjaan pada lapisan ini mencakup desain schema/model, relasi antar-model, dan integrasi dengan LoopBack 4 serta Redis, dengan tujuan menjaga efisiensi akses data seiring pertumbuhan volume pengguna dan transaksi.
 
-## 12. Testing
+## 12. Pengujian
 
-Ia mengembangkan **End-to-End Testing menggunakan Supertest**, mencakup alur kritikal seperti autentikasi, otorisasi, endpoint API, alur transaksi, background job, dan integrasi antar-komponen — untuk memastikan perubahan backend tidak merusak fungsionalitas inti bisnis.
+End-to-End Testing dikembangkan menggunakan Supertest. Pengujian mencakup alur kritikal seperti autentikasi, otorisasi, endpoint API, alur transaksi, background job, dan integrasi antar-komponen, untuk memastikan bahwa perubahan pada backend tidak merusak fungsionalitas inti bisnis.
 
-## 13. Monitoring & Observability
+## 13. Monitoring dan Observability
 
-Ia menggunakan **Loki** dan **Grafana** untuk centralized logging dan monitoring, yang membantunya memantau perilaku API dan background processing, menginvestigasi failed jobs, serta mempercepat debugging dan troubleshooting berdasarkan log operasional.
+Loki dan Grafana digunakan untuk centralized logging dan monitoring. Kedua perangkat tersebut membantu pemantauan perilaku API dan background processing, investigasi failed jobs, serta percepatan proses debugging dan troubleshooting berdasarkan log operasional.
 
-## 14. Docker & Containerization
+## 14. Docker dan Containerization
 
-Ia menggunakan **Docker** dan **Docker Compose**, dengan container yang dipisah berdasarkan workload:
+Docker dan Docker Compose digunakan dengan container yang dipisahkan berdasarkan workload:
 
 ```
 Production / Staging
@@ -190,49 +157,45 @@ Production / Staging
 
 Pemisahan ini membuat setiap komponen memiliki lifecycle dan workload yang lebih independen.
 
-## 15. CI/CD & Deployment
+## 15. CI/CD dan Deployment
 
-Ia mengelola **CI/CD secara manual** untuk staging dan production — mencakup build aplikasi, build Docker image, configuration management, deployment, update container, serta troubleshooting deployment.
+CI/CD dikelola secara manual untuk lingkungan staging dan production. Cakupannya meliputi build aplikasi, build Docker image, configuration management, deployment, pembaruan container, dan troubleshooting deployment.
 
 ## 16. Production Troubleshooting
 
-Ia mulai terlibat langsung dalam investigasi error API, debugging background job, troubleshooting worker, analisis log, investigasi performance issue, hingga perbaikan bug yang ditemukan melalui monitoring production.
+Pada akhir fase ini, penulis mulai terlibat langsung dalam investigasi error API, debugging background job, troubleshooting worker, analisis log, investigasi masalah performa, dan perbaikan bug yang ditemukan melalui monitoring production.
 
 ---
 
-# Bagian II — Senior Developer (Posisi Saat Ini)
+# Bagian II: Fase Senior Developer (Posisi Saat Ini)
 
-Setelah melanjutkan di perusahaan yang sama, perannya berkembang menjadi **Senior Developer**. Fokus pekerjaannya pun bergeser secara signifikan.
+Setelah melanjutkan karier di perusahaan yang sama, peran penulis berkembang menjadi Senior Developer, dan fokus pekerjaan bergeser secara signifikan. Fase Remote Developer lebih banyak berkaitan dengan:
 
-Jika fase Remote Developer lebih banyak berkaitan dengan:
+> *building, migration, architecture, optimization,* dan *feature development*,
 
-> **building, migration, architecture, optimization,** dan **feature development**
+sedangkan fokus utama pada fase Senior Developer adalah:
 
-maka sebagai Senior Developer, fokus utamanya menjadi:
-
-> **production ownership, troubleshooting, business logic, data integrity, operational support, custom reporting,** dan **system maintenance**
+> *production ownership, troubleshooting, business logic, data integrity, operational support, custom reporting,* dan *system maintenance*.
 
 ## 17. Production Bug Fixing
 
-Ia menangani penyelesaian bug pada sistem production secara menyeluruh — mulai dari investigasi, penentuan root cause, perbaikan implementasi, memastikan fix tidak menimbulkan regresi, testing terhadap alur terkait, hingga deployment dan monitoring pasca-perubahan.
-
-Sumber bug tidak selalu berasal dari code, tetapi juga bisa berasal dari business logic, data, perilaku API/dashboard, background processing, integrasi, maupun alur operasional.
+Bug pada sistem production ditangani secara menyeluruh, mulai dari investigasi, penentuan root cause, perbaikan implementasi, pemastian bahwa perbaikan tidak menimbulkan regresi, pengujian terhadap alur terkait, hingga deployment dan monitoring pascaperubahan. Sumber bug tidak selalu berasal dari code, tetapi dapat pula berasal dari business logic, data, perilaku API/dashboard, background processing, integrasi, maupun alur operasional.
 
 ## 18. Perbaikan Business Logic
 
-Ia menangani berbagai kebutuhan perubahan dan perbaikan pada business logic, misalnya ketika:
+Perubahan dan perbaikan business logic ditangani ketika:
 
-- Behavior aplikasi tidak sesuai dengan kebutuhan bisnis
-- Ada kondisi yang belum ditangani implementasi
-- Logic yang ada memerlukan penyesuaian
-- Business rule mengalami perubahan
-- Ditemukan edge case yang sebelumnya belum diperhitungkan
+- behavior aplikasi tidak sesuai dengan kebutuhan bisnis;
+- terdapat kondisi yang belum ditangani oleh implementasi;
+- logic yang ada memerlukan penyesuaian;
+- business rule mengalami perubahan; atau
+- ditemukan edge case yang sebelumnya belum diperhitungkan.
 
-Baginya, pekerjaan ini menuntut lebih dari sekadar memperbaiki syntax — ia perlu memahami **alasan di balik perilaku sistem tertentu**, lalu menerjemahkannya ke dalam implementasi yang tepat.
+Pekerjaan ini menuntut lebih dari sekadar perbaikan syntax, karena alasan di balik perilaku sistem tertentu perlu dipahami terlebih dahulu sebelum diterjemahkan ke dalam implementasi yang tepat.
 
 ## 19. Production Troubleshooting Menyeluruh
 
-Sebagai Senior Developer, troubleshooting menjadi bagian yang jauh lebih dominan dalam pekerjaannya. Alur investigasi yang dilakukannya biasanya menyusuri seluruh lapisan sistem:
+Pada fase ini, troubleshooting menjadi bagian yang jauh lebih dominan. Investigasi umumnya menelusuri seluruh lapisan sistem, sebagaimana ditunjukkan pada Gambar 2.
 
 ```
 Dashboard
@@ -248,36 +211,38 @@ Background Process
 Data Eksternal/Operasional
 ```
 
-Ia menelusuri masalah secara end-to-end untuk menemukan akar penyebab sebenarnya — yang tidak selalu berada di level code, melainkan bisa berasal dari data, business rule, incorrect state, proses operasional, integrasi, atau bahkan environment deployment.
+*Gambar 2. Alur investigasi troubleshooting end-to-end.*
+
+Penelusuran dilakukan secara end-to-end untuk menemukan akar penyebab sebenarnya. Akar penyebab tidak selalu berada pada level code, tetapi dapat berasal dari data, business rule, state yang tidak tepat, proses operasional, integrasi, atau environment deployment.
 
 ## 20. Koreksi Data Manual
 
-Ia menangani perbaikan data secara manual ketika suatu kondisi tidak dapat diselesaikan melalui workflow normal dashboard, dengan proses:
+Koreksi data secara manual dilakukan ketika suatu kondisi tidak dapat diselesaikan melalui workflow normal dashboard. Prosesnya terdiri atas:
 
-1. Investigasi kondisi data
-2. Memahami penyebab ketidaksesuaian data
-3. Menentukan data yang perlu dikoreksi
-4. Melakukan koreksi
-5. Memastikan konsistensi dengan business logic
-6. Validasi hasil setelah koreksi
+1. investigasi kondisi data;
+2. identifikasi penyebab ketidaksesuaian data;
+3. penentuan data yang perlu dikoreksi;
+4. pelaksanaan koreksi;
+5. pemastian konsistensi dengan business logic; dan
+6. validasi hasil setelah koreksi.
 
-Pekerjaan ini menuntut pemahaman mendalam bukan hanya terhadap skema database, tetapi juga business rules dan siklus hidup data.
+Pekerjaan ini memerlukan pemahaman mendalam tidak hanya terhadap skema database, tetapi juga terhadap business rules dan siklus hidup data.
 
 ## 21. Custom Reporting
 
-Ia membuat laporan khusus untuk kebutuhan bisnis yang tidak tersedia secara default di dashboard — mencakup pemahaman requirement, penentuan sumber data, pengambilan dan pengolahan data, agregasi/filtering sesuai kebutuhan, penyesuaian format laporan, hingga validasi hasil terhadap data aktual. Pekerjaan ini bersifat lebih ad-hoc dan berorientasi bisnis dibanding pengembangan fitur pada umumnya. Laporan dibuat dalam dua format, CSV dan XLSX, dibangun menggunakan code setelah mengakses data langsung dari database.
+Laporan khusus dibuat untuk kebutuhan bisnis yang tidak tersedia secara default pada dashboard. Tahapannya mencakup pemahaman requirement, penentuan sumber data, pengambilan dan pengolahan data, agregasi atau filtering sesuai kebutuhan, penyesuaian format laporan, dan validasi hasil terhadap data aktual. Pekerjaan ini bersifat lebih ad-hoc dan berorientasi bisnis dibandingkan pengembangan fitur pada umumnya. Laporan dihasilkan dalam dua format, yaitu CSV dan XLSX, dengan code yang dibangun setelah data diakses langsung dari database.
 
-## 22. Full API Rewrite — Go + Echo
+## 22. Full API Rewrite: Go dan Echo
 
-Salah satu pekerjaan terbesarnya pada fase ini adalah melakukan **rewrite menyeluruh terhadap API**, dari stack lama **LoopBack 4 + TypeScript** menjadi **Go + Echo**, dengan melanjutkan repository yang sudah ada. Alasan utamanya adalah penanganan transaction yang lebih mudah pada Go, sehingga dapat membantu dalam berbagai macam business logic pada sistem.
+Salah satu pekerjaan terbesar pada fase ini adalah penulisan ulang (rewrite) API secara menyeluruh, dari stack LoopBack 4 dan TypeScript menjadi Go dan Echo, dengan melanjutkan repository yang sudah ada. Alasan utamanya adalah penanganan transaction yang lebih mudah pada Go, sehingga mendukung berbagai business logic pada sistem.
 
-Pendekatan yang digunakan bukan membangun API baru dengan contract baru, melainkan:
+Pendekatan yang digunakan tidak membangun API baru dengan contract baru, melainkan:
 
-> **Mengganti implementasi backend tanpa mengharuskan dashboard memahami perbedaan apa pun di baliknya.**
+> mengganti implementasi backend tanpa mengharuskan dashboard memahami perbedaan apa pun di baliknya.
 
-### 22.1 Mempertahankan Pola API yang Sudah Ada
+### 22.1 Pemertahanan Pola API yang Sudah Ada
 
-Meski backend ditulis ulang menggunakan Go + Echo, seluruh pattern yang sudah digunakan dashboard tetap dipertahankan — termasuk pola endpoint, request, response, struktur data, behavior, dan pola integrasi.
+Meskipun backend ditulis ulang, seluruh pattern yang telah digunakan dashboard dipertahankan, termasuk pola endpoint, request, response, struktur data, behavior, dan pola integrasi (Gambar 3). Dengan demikian, dashboard tidak memerlukan logic berbeda akibat perubahan implementasi backend.
 
 ```
                     Dashboard
@@ -294,53 +259,57 @@ Meski backend ditulis ulang menggunakan Go + Echo, seluruh pattern yang sudah di
                 Consistent UI
 ```
 
-Dashboard tidak perlu memiliki logic berbeda hanya karena implementasi backend berubah.
+*Gambar 3. Pemertahanan pola API pada implementasi lama dan baru.*
 
-### 22.2 Filosofi di Balik Rewrite
+### 22.2 Landasan Pendekatan Rewrite
 
-Rewrite ini mencerminkan pendekatan **compatibility-first** yang dipegangnya. Alih-alih:
+Rewrite ini mencerminkan pendekatan *compatibility-first*. Pendekatan konvensional adalah:
 
-> Backend baru → contract API baru → dashboard harus diubah
+> backend baru → contract API baru → dashboard harus diubah.
 
-pendekatan yang digunakan adalah:
+Pendekatan yang diterapkan adalah:
 
-> Pola dashboard yang sudah ada dipertahankan → implementasi backend yang diganti.
+> pola dashboard yang sudah ada dipertahankan → implementasi backend diganti.
 
-Dengan begitu, perubahan besar terjadi di lapisan backend, sementara dashboard tetap berjalan dengan pola yang sudah dikenalnya.
+Dengan demikian, perubahan besar terjadi pada lapisan backend, sedangkan dashboard tetap berjalan dengan pola yang telah dikenalnya.
 
-## 23. Go + Echo — Hasil Akhir
+## 23. Go dan Echo: Hasil Akhir
 
-Implementasi API menggunakan Go + Echo yang dibangunnya pada akhirnya **tidak dilanjutkan penggunaannya**. Meski demikian, pengalaman ini tetap berharga karena mencakup:
+Implementasi API dengan Go dan Echo pada akhirnya tidak dilanjutkan penggunaannya. Meskipun demikian, pengalaman ini tetap bernilai karena mencakup:
 
-- Pemahaman menyeluruh terhadap seluruh existing API
-- Pemahaman dependency antar-endpoint
-- Pemahaman posisi dashboard sebagai konsumen API
-- Pemahaman mendalam terhadap business logic yang berjalan
-- Proses rewrite backend secara menyeluruh
-- Penjagaan kompatibilitas sistem
-- Penyamaan behavior antara implementasi lama dan baru
-- Troubleshooting sepanjang proses migrasi
-- Pengambilan keputusan arsitektur berbasis kondisi sistem nyata, bukan sekadar preferensi teknologi
+- pemahaman menyeluruh terhadap seluruh existing API;
+- pemahaman dependency antar-endpoint;
+- pemahaman posisi dashboard sebagai konsumen API;
+- pemahaman mendalam terhadap business logic yang berjalan;
+- proses rewrite backend secara menyeluruh;
+- penjagaan kompatibilitas sistem;
+- penyamaan behavior antara implementasi lama dan baru;
+- troubleshooting sepanjang proses migrasi; dan
+- pengambilan keputusan arsitektur berdasarkan kondisi sistem nyata, bukan sekadar preferensi teknologi.
 
-Dengan demikian, pengalaman ini lebih tepat dipandang sebagai pengalaman **system rewrite dan compatibility engineering**, bukan semata pengalaman menggunakan bahasa Go.
+Oleh karena itu, pengalaman ini lebih tepat dipandang sebagai pengalaman *system rewrite* dan *compatibility engineering*, bukan semata-mata pengalaman menggunakan bahasa Go.
 
-## 24. CI/CD & Deployment — Level Senior
+## 24. CI/CD dan Deployment pada Level Senior
 
-CI/CD masih dijalankan secara manual, mencakup deployment staging dan production, build, Docker image, configuration, update service, hingga troubleshooting deployment.
+CI/CD masih dijalankan secara manual, mencakup deployment staging dan production, build, Docker image, configuration, pembaruan service, dan troubleshooting deployment. Perbedaan utamanya adalah bahwa pada level Senior Developer, deployment tidak lagi terbatas pada feature development, tetapi juga mencakup bug fix, koreksi business logic, koreksi data, perubahan API, hotfix production, dan maintenance rutin.
 
-Perbedaan utamanya: pada level Senior Developer, deployment yang dilakukan tidak lagi hanya terkait feature development, tetapi juga mencakup bug fix, koreksi business logic, koreksi data, perubahan API, hotfix production, dan maintenance rutin.
+## 25. Checker Flow (Maker, Checker, Viewer)
 
-## 25. Checker Flow (Maker–Checker–Viewer)
+Analisis dan implementasi dilakukan terhadap sebuah flow baru di luar flow normal sistem, yaitu Checker Flow. Flow ini melibatkan tiga role, dan masing-masing role terikat pada tepat satu InvestorApplication (IA). Pada flow ini, pemilik IA tidak diizinkan membuat investment atau withdrawal secara langsung. Hak akses setiap role dirangkum pada Tabel 1.
 
-Menganalisis dan mengimplementasikan **flow baru di luar flow normal system**, yaitu **Checker Flow**. Ada tiga role yang terlibat, dan masing-masing terikat ke **tepat satu InvestorApplication (IA)**. Pada flow ini, pemilik IA tidak diizinkan membuat investment atau withdrawal secara langsung.
+*Tabel 1. Hak akses pada Checker Flow*
 
 | Role | Hak akses |
 |---|---|
-| **Maker** | Membuat request withdrawal atau investment, dan membatalkan (cancel) request yang belum di-confirm atau di-reject oleh Checker |
-| **Checker** | Confirm atau reject request. Confirm akan membuat investment atau withdrawal sesuai request |
-| **Viewer** | Hanya melihat, tanpa melakukan action apa pun |
+| Maker | Membuat request withdrawal atau investment, serta membatalkan (cancel) request yang belum di-confirm atau di-reject oleh Checker |
+| Checker | Melakukan confirm atau reject terhadap request; confirm menghasilkan investment atau withdrawal sesuai request |
+| Viewer | Hanya melihat, tanpa melakukan action apa pun |
 
 ### 25.1 Status Request
+
+Status request pada Checker Flow dijelaskan pada Tabel 2.
+
+*Tabel 2. Status request*
 
 | Status | Keterangan |
 |---|---|
@@ -348,26 +317,23 @@ Menganalisis dan mengimplementasikan **flow baru di luar flow normal system**, y
 | Confirmed | Disetujui oleh Checker |
 | Rejected | Ditolak oleh Checker |
 | Cancelled | Dibatalkan oleh Maker sebelum diputuskan |
-| Processed | Status sementara: request sudah di-confirm, tetapi proses pembuatan investment/withdrawal masih berjalan |
+| Processed | Status sementara: request telah di-confirm, tetapi proses pembuatan investment atau withdrawal masih berjalan |
 
 ### 25.2 Audit Trail
 
-Setiap event terhubung ke satu request, dan semua jenis action tersimpan.
+Setiap event terhubung dengan satu request, dan seluruh jenis action disimpan.
 
 ### 25.3 Cakupan Implementasi
 
-- Penambahan properti baru
-- Pengecekan authorization per role
-- Perubahan business logic
-- Penambahan transactional secara menyeluruh pada checker flow
+Implementasi mencakup penambahan properti baru, pengecekan authorization per role, perubahan business logic, dan penambahan transactional secara menyeluruh pada Checker Flow.
 
-### 25.4 Alasan Memakai Transaction
+### 25.4 Alasan Penggunaan Transaction
 
-Transaction dibutuhkan agar tidak terjadi inkonsistensi perubahan data bila error atau kesalahan menghentikan proses di tengah jalan. Hal ini sangat penting karena sistem berhubungan dengan finansial.
+Transaction diperlukan untuk mencegah inkonsistensi perubahan data apabila terjadi error atau kesalahan yang menyebabkan proses berhenti di tengah jalan. Hal ini sangat penting karena sistem berkaitan dengan transaksi finansial.
 
 ---
 
-# Bagian III — Perbandingan dan Ringkasan
+# Bagian III: Analisis Komparatif dan Ringkasan
 
 ## 26. Peta Perkembangan Tanggung Jawab
 
@@ -412,114 +378,93 @@ REMOTE DEVELOPER
        └── Manual CI/CD
 ```
 
-## 27. Perbedaan Utama: Remote Developer vs Senior Developer
+*Gambar 4. Peta perkembangan tanggung jawab.*
+
+## 27. Perbedaan Utama antara Fase Remote Developer dan Senior Developer
+
+*Tabel 3. Perbandingan fase Remote Developer dan Senior Developer*
 
 | Area | Remote Developer | Senior Developer |
 |---|---|---|
-| Backend | Build & migrasi | Maintenance & rewrite |
-| Arsitektur | Merancang arsitektur | Menjaga & mengubah arsitektur tanpa breaking existing system |
-| API | Development | Maintenance, troubleshooting & rewrite |
+| Backend | Build dan migrasi | Maintenance dan rewrite |
+| Arsitektur | Perancangan arsitektur | Pemeliharaan dan perubahan arsitektur tanpa merusak sistem yang ada |
+| API | Development | Maintenance, troubleshooting, dan rewrite |
 | Framework | LoopBack 3 → 4 | LoopBack 4 → Go/Echo |
-| Performa | Redis & async processing | Troubleshooting performa production |
-| Queue | Merancang Queue/Worker | Maintenance & troubleshooting |
-| Database | Optimasi query/model | Investigasi & koreksi data manual |
-| Dashboard | Develop & migrasi | Menjaga kompatibilitas |
-| Business Logic | Implementasi fitur | Koreksi & pemeliharaan business rule, flow baru (Checker Flow) |
-| Bug | Fix issue development | Ownership bug production |
+| Performa | Redis dan async processing | Troubleshooting performa production |
+| Queue | Perancangan Queue/Worker | Maintenance dan troubleshooting |
+| Database | Optimasi query/model | Investigasi dan koreksi data manual |
+| Dashboard | Pengembangan dan migrasi | Pemeliharaan kompatibilitas |
+| Business Logic | Implementasi fitur | Koreksi dan pemeliharaan business rule; flow baru (Checker Flow) |
+| Bug | Perbaikan isu development | Ownership bug production |
 | Data | Alur aplikasi normal | Koreksi data manual |
 | Report | — | Custom/ad-hoc reporting |
-| Testing | Pengembangan E2E | Validasi/regresi untuk fix |
-| Monitoring | Setup Loki/Grafana | Penggunaan monitoring untuk troubleshooting |
-| Deployment | Manual CI/CD | Manual CI/CD + perubahan production |
+| Testing | Pengembangan E2E | Validasi/regresi untuk perbaikan |
+| Monitoring | Setup Loki/Grafana | Pemanfaatan monitoring untuk troubleshooting |
+| Deployment | Manual CI/CD | Manual CI/CD dan perubahan production |
 | Migrasi API | LB3 → LB4 | LB4 → Go/Echo |
-| Konsistensi Data | Caching & invalidation | Transactional flow pada proses finansial |
+| Konsistensi data | Caching dan invalidation | Transactional flow pada proses finansial |
 | Cakupan | Pengembangan fitur/sistem | Kepemilikan sistem end-to-end |
 
 ## 28. Keseluruhan Technology Stack
 
-**Backend**
-TypeScript · LoopBack 3 · LoopBack 4 · Go · Echo · REST API · JWT · HMAC
-
-**Database & Caching**
-MongoDB · Redis
-
-**Queue & Background Processing**
-BullMQ · Redis Queue · Worker · Cron Jobs · Background Jobs · Batch Processing · Asynchronous Processing
-
-**Frontend**
-React · Svelte · TanStack · TanStack Form · DaisyUI · Tailwind CSS · Directus CMS · Atomic Design
-
-**Testing**
-Supertest · E2E Testing
-
-**Monitoring**
-Loki · Grafana
-
-**Infrastruktur**
-Docker · Docker Compose · Containerized Deployment · Manual CI/CD · Staging & Production Deployment
+- **Backend:** TypeScript, LoopBack 3, LoopBack 4, Go, Echo, REST API, JWT, HMAC
+- **Database dan caching:** MongoDB, Redis
+- **Queue dan background processing:** BullMQ, Redis Queue, Worker, Cron Jobs, Background Jobs, Batch Processing, Asynchronous Processing
+- **Frontend:** React, Svelte, TanStack, TanStack Form, DaisyUI, Tailwind CSS, Directus CMS, Atomic Design
+- **Pengujian:** Supertest, E2E Testing
+- **Monitoring:** Loki, Grafana
+- **Infrastruktur:** Docker, Docker Compose, Containerized Deployment, Manual CI/CD, Staging dan Production Deployment
 
 ---
 
-# Bagian IV — Project Pribadi: Loom
+# Bagian IV: Proyek Pribadi: Loom
 
-Di luar pekerjaan utama, ia sedang mengembangkan **Loom**, sebuah framework pribadi untuk membangun REST API secara lebih cepat, konsisten, dan minim boilerplate.
+Di luar pekerjaan utama, penulis mengembangkan Loom, yaitu framework pribadi untuk membangun REST API secara lebih cepat, konsisten, dan minim boilerplate.
 
-## 29. Latar Belakang & Konsep Inti
+## 29. Latar Belakang dan Konsep Inti
 
-Ide utama Loom lahir dari pengalaman berulang kali membangun endpoint CRUD yang polanya hampir selalu sama, namun tetap harus ditulis manual satu per satu di setiap proyek. Loom dirancang untuk mengatasi hal ini dengan pendekatan:
+Gagasan Loom bersumber dari pengalaman membangun endpoint CRUD yang berpola hampir sama secara berulang, yang tetap harus ditulis manual pada setiap proyek. Loom dirancang dengan pendekatan:
 
-> **Terpusat pada interface MODEL dan rules per property, lalu CRUD dasar terbentuk secara otomatis.**
+> terpusat pada interface MODEL dan rules per property, kemudian CRUD dasar terbentuk secara otomatis.
 
-Alih-alih menulis controller, validasi, dan endpoint secara manual untuk setiap resource, cukup didefinisikan:
+Sebagai pengganti penulisan controller, validasi, dan endpoint secara manual untuk setiap resource, hanya dua hal yang perlu didefinisikan:
 
-- **Interface MODEL** — struktur data/entity yang merepresentasikan resource
-- **Rules per property** — aturan pada level masing-masing field (misalnya tipe data, wajib/opsional, validasi, format, relasi, dan batasan lainnya)
+- **Interface MODEL**, yaitu struktur data/entity yang merepresentasikan resource; dan
+- **Rules per property**, yaitu aturan pada level masing-masing field (misalnya tipe data, wajib/opsional, validasi, format, relasi, dan batasan lainnya).
 
-Dari dua definisi tersebut, Loom secara otomatis menghasilkan operasi **CRUD dasar** (Create, Read, Update, Delete) tanpa perlu menulis ulang logic yang berulang untuk setiap resource baru.
+Berdasarkan kedua definisi tersebut, Loom menghasilkan operasi CRUD dasar (Create, Read, Update, Delete) secara otomatis, tanpa penulisan ulang logic yang berulang untuk setiap resource baru.
 
 ## 30. Tujuan Pengembangan
 
-Beberapa tujuan yang ingin dicapai lewat Loom:
+Tujuan pengembangan Loom adalah:
 
-- Mempercepat proses scaffolding API baru
-- Mengurangi duplikasi logic CRUD antar-resource
-- Menstandarkan cara mendefinisikan validasi dan rules pada level property
-- Memisahkan definisi "apa data ini" dari "bagaimana cara mengaksesnya"
-- Menjadikan penambahan resource baru semudah mendefinisikan interface model-nya
+- mempercepat proses scaffolding API baru;
+- mengurangi duplikasi logic CRUD antar-resource;
+- menstandarkan cara mendefinisikan validasi dan rules pada level property;
+- memisahkan definisi "apa data ini" dari "bagaimana data diakses"; dan
+- menjadikan penambahan resource baru semudah mendefinisikan interface model.
 
-## 31. Tech Stack
+## 31. Technology Stack
 
-**Stack utama**
-- **TypeScript**
-- **Hono** — sebagai framework utama
-- **Zod** — sebagai schema dan validator
-- **MongoDB** — sebagai database
+**Stack utama:** TypeScript; Hono sebagai framework utama; Zod sebagai schema dan validator; dan MongoDB sebagai database.
 
-**Alternatif stack yang juga dieksplorasi**
-- **Go**
-- **MongoDB**
+**Stack alternatif yang dieksplorasi:** Go dan MongoDB.
 
-Eksplorasi dua stack ini memungkinkan perbandingan trade-off antara kecepatan pengembangan (TypeScript + Bun) dan performa/efisiensi runtime (Go), sambil tetap mempertahankan MongoDB sebagai database di kedua pendekatan.
+Eksplorasi kedua stack ini memungkinkan perbandingan trade-off antara kecepatan pengembangan (TypeScript dan Bun) dan performa atau efisiensi runtime (Go), dengan tetap mempertahankan MongoDB sebagai database pada kedua pendekatan.
 
 ## 32. Relevansi dengan Pengalaman Profesional
 
-Loom cukup erat kaitannya dengan pengalaman profesional di pekerjaan utama — terutama dari sisi:
+Loom berkaitan erat dengan pengalaman profesional pada pekerjaan utama, terutama pada aspek berikut:
 
-- Pengalaman merancang backend architecture (LoopBack 3/4, Go + Echo)
-- Pemahaman mendalam terhadap pola desain REST API dan konsistensi contract
-- Pengalaman menjaga compatibility API di berbagai layer konsumen (dashboard)
-- Kebiasaan menstandarkan pattern agar mudah di-maintain dalam skala besar
+- pengalaman merancang arsitektur backend (LoopBack 3/4, Go dan Echo);
+- pemahaman mendalam terhadap pola desain REST API dan konsistensi contract;
+- pengalaman menjaga compatibility API pada berbagai layer konsumen (dashboard); dan
+- kebiasaan menstandarkan pattern agar mudah dipelihara pada skala besar.
 
-Loom pada dasarnya adalah upaya menerapkan pelajaran dari pengalaman profesional — terutama soal pentingnya konsistensi pattern dan pengurangan duplikasi — ke dalam sebuah tool yang bisa dipakai ulang di proyek mana pun.
+Pada dasarnya, Loom merupakan upaya menerapkan pelajaran dari pengalaman profesional, khususnya mengenai pentingnya konsistensi pattern dan pengurangan duplikasi, ke dalam sebuah perangkat yang dapat digunakan ulang pada proyek apa pun.
 
 ---
 
-# Ringkasan Akhir
+# Kesimpulan
 
-Perjalanan kariernya bukan sekadar:
-
-**Remote Developer → Senior Developer**
-
-tetapi lebih tepat digambarkan sebagai:
-
-**Developer yang membangun sistem → Engineer yang memahami keseluruhan sistem → Engineer yang memiliki kepemilikan penuh atas sistem production — sambil terus mengasah pemikiran arsitektural lewat project pribadi seperti Loom.**
+Perjalanan karier yang dipaparkan tidak terbatas pada perpindahan dari Remote Developer menjadi Senior Developer. Perjalanan tersebut lebih tepat dipahami sebagai perkembangan dari pengembang yang membangun sistem, menjadi engineer yang memahami keseluruhan sistem, hingga menjadi engineer yang memegang kepemilikan penuh atas sistem production. Perkembangan ini disertai dengan pengasahan pemikiran arsitektural secara berkelanjutan melalui proyek pribadi seperti Loom.
