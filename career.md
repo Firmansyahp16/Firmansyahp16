@@ -15,7 +15,7 @@
 Secara garis besar, perjalanan kariernya dapat diringkas sebagai berikut:
 
 > Sebagai **Remote Developer**, ia membangun fondasi sistem, melakukan migrasi dari platform legacy, dan merancang arsitektur untuk skalabilitas.
-> Sebagai **Senior Developer**, ia memegang kepemilikan penuh atas sistem produksi: troubleshooting, business logic, integritas data, dan rewrite backend berskala besar.
+> Sebagai **Senior Developer**, ia memegang kepemilikan penuh atas sistem produksi: troubleshooting, business logic, integritas data, flow baru seperti Checker Flow, dan rewrite backend berskala besar.
 
 Di luar pekerjaan utama, ia juga sedang mengembangkan **Loom**, sebuah framework pribadi untuk membangun REST API secara lebih cepat dan terstandarisasi (dijelaskan pada Bagian IV).
 
@@ -330,11 +330,46 @@ CI/CD masih dijalankan secara manual, mencakup deployment staging dan production
 
 Perbedaan utamanya: pada level Senior Developer, deployment yang dilakukan tidak lagi hanya terkait feature development, tetapi juga mencakup bug fix, koreksi business logic, koreksi data, perubahan API, hotfix production, dan maintenance rutin.
 
+## 25. Checker Flow (Maker–Checker–Viewer)
+
+Ia menganalisis dan mengimplementasikan **flow baru di luar flow normal system**, yaitu **Checker Flow**. Ada tiga role yang terlibat, dan masing-masing terikat ke **tepat satu InvestorApplication (IA)**. Pada flow ini, pemilik IA tidak diizinkan membuat investment atau withdrawal secara langsung.
+
+| Role | Hak akses |
+|---|---|
+| **Maker** | Membuat request withdrawal atau investment, dan membatalkan (cancel) request yang belum di-confirm atau di-reject oleh Checker |
+| **Checker** | Confirm atau reject request. Confirm akan membuat investment atau withdrawal sesuai request |
+| **Viewer** | Hanya melihat, tanpa melakukan action apa pun |
+
+### 25.1 Status Request
+
+| Status | Keterangan |
+|---|---|
+| Pending Confirmation | Menunggu keputusan Checker |
+| Confirmed | Disetujui oleh Checker |
+| Rejected | Ditolak oleh Checker |
+| Cancelled | Dibatalkan oleh Maker sebelum diputuskan |
+| Processed | Status sementara: request sudah di-confirm, tetapi proses pembuatan investment/withdrawal masih berjalan |
+
+### 25.2 Audit Trail
+
+Setiap event terhubung ke satu request, dan semua jenis action tersimpan.
+
+### 25.3 Cakupan Implementasi
+
+- Penambahan properti baru
+- Pengecekan authorization per role
+- Perubahan business logic
+- Penambahan transactional secara menyeluruh pada checker flow
+
+### 25.4 Alasan Memakai Transaction
+
+Transaction dibutuhkan agar tidak terjadi inkonsistensi perubahan data bila error atau kesalahan menghentikan proses di tengah jalan. Hal ini sangat penting karena sistem berhubungan dengan finansial.
+
 ---
 
 # Bagian III — Perbandingan dan Ringkasan
 
-## 25. Peta Perkembangan Tanggung Jawab
+## 26. Peta Perkembangan Tanggung Jawab
 
 ```
 REMOTE DEVELOPER
@@ -372,10 +407,12 @@ REMOTE DEVELOPER
        ├── Go + Echo
        ├── API Compatibility
        ├── Dashboard Compatibility
+       ├── Checker Flow (Maker / Checker / Viewer)
+       ├── Transactional Flow
        └── Manual CI/CD
 ```
 
-## 26. Perbedaan Utama: Remote Developer vs Senior Developer
+## 27. Perbedaan Utama: Remote Developer vs Senior Developer
 
 | Area | Remote Developer | Senior Developer |
 |---|---|---|
@@ -387,7 +424,7 @@ REMOTE DEVELOPER
 | Queue | Merancang Queue/Worker | Maintenance & troubleshooting |
 | Database | Optimasi query/model | Investigasi & koreksi data manual |
 | Dashboard | Develop & migrasi | Menjaga kompatibilitas |
-| Business Logic | Implementasi fitur | Koreksi & pemeliharaan business rule |
+| Business Logic | Implementasi fitur | Koreksi & pemeliharaan business rule, flow baru (Checker Flow) |
 | Bug | Fix issue development | Ownership bug production |
 | Data | Alur aplikasi normal | Koreksi data manual |
 | Report | — | Custom/ad-hoc reporting |
@@ -395,9 +432,10 @@ REMOTE DEVELOPER
 | Monitoring | Setup Loki/Grafana | Penggunaan monitoring untuk troubleshooting |
 | Deployment | Manual CI/CD | Manual CI/CD + perubahan production |
 | Migrasi API | LB3 → LB4 | LB4 → Go/Echo |
+| Konsistensi Data | Caching & invalidation | Transactional flow pada proses finansial |
 | Cakupan | Pengembangan fitur/sistem | Kepemilikan sistem end-to-end |
 
-## 27. Keseluruhan Technology Stack
+## 28. Keseluruhan Technology Stack
 
 **Backend**
 TypeScript · LoopBack 3 · LoopBack 4 · Go · Echo · REST API · JWT · HMAC
@@ -426,7 +464,7 @@ Docker · Docker Compose · Containerized Deployment · Manual CI/CD · Staging 
 
 Di luar pekerjaan utama, ia sedang mengembangkan **Loom**, sebuah framework pribadi untuk membangun REST API secara lebih cepat, konsisten, dan minim boilerplate.
 
-## 28. Latar Belakang & Konsep Inti
+## 29. Latar Belakang & Konsep Inti
 
 Ide utama Loom lahir dari pengalaman berulang kali membangun endpoint CRUD yang polanya hampir selalu sama, namun tetap harus ditulis manual satu per satu di setiap proyek. Loom dirancang untuk mengatasi hal ini dengan pendekatan:
 
@@ -439,7 +477,7 @@ Alih-alih menulis controller, validasi, dan endpoint secara manual untuk setiap 
 
 Dari dua definisi tersebut, Loom secara otomatis menghasilkan operasi **CRUD dasar** (Create, Read, Update, Delete) tanpa perlu menulis ulang logic yang berulang untuk setiap resource baru.
 
-## 29. Tujuan Pengembangan
+## 30. Tujuan Pengembangan
 
 Beberapa tujuan yang ingin dicapai lewat Loom:
 
@@ -449,12 +487,12 @@ Beberapa tujuan yang ingin dicapai lewat Loom:
 - Memisahkan definisi "apa data ini" dari "bagaimana cara mengaksesnya"
 - Menjadikan penambahan resource baru semudah mendefinisikan interface model-nya
 
-## 30. Tech Stack
+## 31. Tech Stack
 
 **Stack utama**
 - **TypeScript**
 - **Hono** — sebagai framework utama
-- **Zod** - sebagai schema dan validator
+- **Zod** — sebagai schema dan validator
 - **MongoDB** — sebagai database
 
 **Alternatif stack yang juga dieksplorasi**
@@ -463,7 +501,7 @@ Beberapa tujuan yang ingin dicapai lewat Loom:
 
 Eksplorasi dua stack ini memungkinkan perbandingan trade-off antara kecepatan pengembangan (TypeScript + Bun) dan performa/efisiensi runtime (Go), sambil tetap mempertahankan MongoDB sebagai database di kedua pendekatan.
 
-## 31. Relevansi dengan Pengalaman Profesional
+## 32. Relevansi dengan Pengalaman Profesional
 
 Loom cukup erat kaitannya dengan pengalaman profesional di pekerjaan utama — terutama dari sisi:
 
