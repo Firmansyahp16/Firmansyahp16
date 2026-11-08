@@ -332,7 +332,7 @@ Perbedaan utamanya: pada level Senior Developer, deployment yang dilakukan tidak
 
 ## 25. Checker Flow (Maker–Checker–Viewer)
 
-Ia menganalisis dan mengimplementasikan **flow baru di luar flow normal system**, yaitu **Checker Flow**. Ada tiga role yang terlibat, dan masing-masing terikat ke **tepat satu InvestorApplication (IA)**. Pada flow ini, pemilik IA tidak diizinkan membuat investment atau withdrawal secara langsung.
+Menganalisis dan mengimplementasikan **flow baru di luar flow normal system**, yaitu **Checker Flow**. Ada tiga role yang terlibat, dan masing-masing terikat ke **tepat satu InvestorApplication (IA)**. Pada flow ini, pemilik IA tidak diizinkan membuat investment atau withdrawal secara langsung.
 
 | Role | Hak akses |
 |---|---|
