@@ -4,7 +4,7 @@
 
 ## Abstrak
 
-Dokumen ini memaparkan perjalanan karier seorang pengembang perangkat lunak pada satu perusahaan yang sama, dari posisi Remote Developer selama kurang lebih satu tahun hingga posisi Senior Developer pada saat ini. Sistem yang ditangani melayani lebih dari 5.000 pengguna harian dengan volume transaksi ratusan hingga jutaan ringgit per hari pada periode live funding. Pada fase Remote Developer, penulis berfokus pada pembangunan fondasi sistem, migrasi dari platform legacy, serta perancangan arsitektur yang skalabel. Pada fase Senior Developer, penulis memegang kepemilikan penuh atas sistem produksi, yang mencakup penanganan masalah (troubleshooting), pemeliharaan business logic, integritas data, implementasi flow baru (Checker Flow), dan penulisan ulang (rewrite) backend berskala besar. Di luar pekerjaan utama, penulis mengembangkan Loom, yaitu framework pribadi untuk membangun REST API secara lebih cepat dan terstandarisasi.
+Dokumen ini memaparkan perjalanan karier seorang pengembang perangkat lunak, yang diawali dengan magang sebagai DevOps Engineer pada tahun 2023, dilanjutkan dengan posisi Remote Developer selama kurang lebih satu tahun, hingga posisi Senior Developer pada saat ini. Kedua posisi terakhir dijalani pada satu perusahaan yang sama, yaitu Agile D3velopers Sdn Bhd. Sistem yang ditangani melayani lebih dari 5.000 pengguna harian dengan volume transaksi ratusan hingga jutaan ringgit per hari pada periode live funding. Pada fase Remote Developer, penulis berfokus pada pembangunan fondasi sistem, migrasi dari platform legacy, serta perancangan arsitektur yang skalabel. Pada fase Senior Developer, penulis memegang kepemilikan penuh atas sistem produksi, yang mencakup penanganan masalah (troubleshooting), pemeliharaan business logic, integritas data, implementasi flow baru (Checker Flow), dan penulisan ulang (rewrite) backend berskala besar. Di luar pekerjaan utama, penulis mengembangkan Loom, yaitu framework pribadi untuk membangun REST API secara lebih cepat dan terstandarisasi.
 
 **Kata kunci:** backend engineering, migrasi sistem, arsitektur queue dan worker, production ownership, Checker Flow, compatibility engineering, REST API
 
@@ -12,14 +12,35 @@ Dokumen ini memaparkan perjalanan karier seorang pengembang perangkat lunak pada
 
 | Aspek | Keterangan |
 |---|---|
-| Perusahaan | Sama untuk kedua posisi |
-| Durasi sebagai Remote Developer | ± 1 tahun |
-| Posisi saat ini | Senior Developer |
+| Perusahaan | Agile D3velopers Sdn Bhd (untuk kedua posisi) |
+| Lokasi perusahaan | WP. Kuala Lumpur, Malaysia |
+| Remote Developer | Agustus 2024 sampai Agustus 2025 (± 1 tahun) |
+| Senior Developer | Agustus 2025 sampai sekarang |
+| Pengalaman sebelumnya | Magang DevOps Engineer di LANDASI, Surabaya (Februari sampai Juli 2023) |
+| Pendidikan | Bachelor of Applied Science (Teknik Komputer), Politeknik Elektronika Negeri Surabaya, Juli 2020 sampai Juli 2024, IPK 3,87/4,00 |
 | Skala sistem | 5.000+ pengguna harian; transaksi ratusan hingga jutaan ringgit per hari ketika live funding |
 
 ---
 
-# Bagian I: Fase Remote Developer (± 1 Tahun)
+# Latar Belakang: Pendidikan dan Pengalaman Magang
+
+## Pendidikan
+
+Penulis menempuh pendidikan Bachelor of Applied Science pada program Teknik Komputer di Politeknik Elektronika Negeri Surabaya (Electronics Engineering Polytechnic Institute of Surabaya) pada Juli 2020 sampai Juli 2024, dengan IPK 3,87 dari skala 4,00.
+
+## Magang: DevOps Engineer di LANDASI
+
+Sebelum memasuki fase Remote Developer, penulis menjalani magang sebagai DevOps Engineer di LANDASI, Surabaya, secara remote, pada Februari sampai Juli 2023 (± 6 bulan). Pekerjaan yang dilakukan mencakup:
+
+- konfigurasi alamat IP server dan pengaturan jaringan agar konektivitas pada infrastruktur berjalan secara optimal;
+- instalasi dan konfigurasi Docker serta Kubernetes pada virtual machine untuk mendukung pengelolaan container dan penyimpanan image yang aman, sehingga proses deployment dan skalabilitas aplikasi meningkat; dan
+- pemeriksaan serta troubleshooting masalah deployment server, mencakup identifikasi root cause dan penerapan solusi agar layanan berjalan lancar dan berkelanjutan.
+
+Pengalaman ini merupakan asal keterampilan Kubernetes dan VMware yang tercantum pada profil penulis.
+
+---
+
+# Bagian I: Fase Remote Developer (Agustus 2024 sampai Agustus 2025, ± 1 Tahun)
 
 Fokus utama pada fase ini adalah pengembangan backend/API, migrasi sistem, pemrosesan asynchronous, performance engineering, pengembangan dashboard, pengujian, monitoring, dan deployment. Secara umum, fase ini diarahkan pada pembangunan dan penguatan fondasi sistem, mulai dari migrasi legacy code, pengembangan dashboard, peningkatan performa, hingga perancangan arsitektur untuk pemrosesan asynchronous dan skalabilitas jangka panjang.
 
@@ -167,7 +188,7 @@ Pada akhir fase ini, penulis mulai terlibat langsung dalam investigasi error API
 
 ---
 
-# Bagian II: Fase Senior Developer (Posisi Saat Ini)
+# Bagian II: Fase Senior Developer (Agustus 2025 sampai Sekarang)
 
 Setelah melanjutkan karier di perusahaan yang sama, peran penulis berkembang menjadi Senior Developer, dan fokus pekerjaan bergeser secara signifikan. Fase Remote Developer lebih banyak berkaitan dengan:
 
@@ -338,6 +359,13 @@ Transaction diperlukan untuk mencegah inkonsistensi perubahan data apabila terja
 ## 26. Peta Perkembangan Tanggung Jawab
 
 ```
+DEVOPS ENGINEER (MAGANG)
+       │
+       ├── Konfigurasi Jaringan Server
+       ├── Docker + Kubernetes pada VM
+       └── Troubleshooting Deployment
+                    │
+                    ▼
 REMOTE DEVELOPER
        │
        ├── Build Backend
@@ -413,7 +441,7 @@ REMOTE DEVELOPER
 - **Frontend:** React, Svelte, TanStack, TanStack Form, DaisyUI, Tailwind CSS, Directus CMS, Atomic Design
 - **Pengujian:** Supertest, E2E Testing
 - **Monitoring:** Loki, Grafana
-- **Infrastruktur:** Docker, Docker Compose, Containerized Deployment, Manual CI/CD, Staging dan Production Deployment
+- **Infrastruktur:** Docker, Docker Compose, Containerized Deployment, Manual CI/CD, Staging dan Production Deployment, Kubernetes dan VMware (pengalaman magang), Konfigurasi Jaringan Server
 
 ---
 
