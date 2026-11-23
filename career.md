@@ -1,13 +1,5 @@
 # Catatan Pengalaman Karier: Perjalanan dari Remote Developer menuju Senior Developer
 
----
-
-## Abstrak
-
-Dokumen ini memaparkan perjalanan karier seorang pengembang perangkat lunak, yang diawali dengan magang sebagai DevOps Engineer pada tahun 2023, dilanjutkan dengan posisi Remote Developer selama kurang lebih satu tahun, hingga posisi Senior Developer pada saat ini. Kedua posisi terakhir dijalani pada satu perusahaan yang sama, yaitu Agile D3velopers Sdn Bhd. Sistem yang ditangani melayani lebih dari 5.000 pengguna harian dengan volume transaksi ratusan hingga jutaan ringgit per hari pada periode live funding. Pada fase Remote Developer, penulis berfokus pada pembangunan fondasi sistem, migrasi dari platform legacy, serta perancangan arsitektur yang skalabel. Pada fase Senior Developer, penulis memegang kepemilikan penuh atas sistem produksi, yang mencakup penanganan masalah (troubleshooting), pemeliharaan business logic, integritas data, implementasi flow baru (Checker Flow), dan penulisan ulang (rewrite) backend berskala besar. Di luar pekerjaan utama, penulis mengembangkan Loom, yaitu framework pribadi untuk membangun REST API secara lebih cepat dan terstandarisasi.
-
-**Kata kunci:** backend engineering, migrasi sistem, arsitektur queue dan worker, production ownership, Checker Flow, compatibility engineering, REST API
-
 ## Ringkasan Data
 
 | Aspek | Keterangan |
@@ -447,38 +439,37 @@ REMOTE DEVELOPER
 
 # Bagian IV: Proyek Pribadi: Loom
 
-Di luar pekerjaan utama, penulis mengembangkan Loom, yaitu framework pribadi untuk membangun REST API secara lebih cepat, konsisten, dan minim boilerplate.
+Di luar pekerjaan utama, penulis mengembangkan Loom, yaitu Lightweight Schema-Driven ORM pribadi. Pada awalnya Loom dirancang sebagai framework untuk membangun REST API, tetapi arah pengembangannya kemudian difokuskan pada lapisan data.
 
 ## 29. Latar Belakang dan Konsep Inti
 
-Gagasan Loom bersumber dari pengalaman membangun endpoint CRUD yang berpola hampir sama secara berulang, yang tetap harus ditulis manual pada setiap proyek. Loom dirancang dengan pendekatan:
+Gagasan awal Loom bersumber dari pengalaman membangun endpoint CRUD yang berpola hampir sama secara berulang pada setiap proyek. Seiring perkembangannya, fokus proyek bergeser dari framework REST API menjadi ORM yang digerakkan oleh schema (*schema-driven*). Pendekatan intinya adalah:
 
-> terpusat pada interface MODEL dan rules per property, kemudian CRUD dasar terbentuk secara otomatis.
+> definisi schema ditetapkan satu kali, kemudian parsing, validasi, dan akses data dilakukan berdasarkan definisi tersebut.
 
-Sebagai pengganti penulisan controller, validasi, dan endpoint secara manual untuk setiap resource, hanya dua hal yang perlu didefinisikan:
+Pembuatan schema mencakup tiga hal, yaitu nama schema, field, dan koneksi database. Rancangan schema tidak banyak berubah dibandingkan versi sebelumnya, dan mekanisme parsing serta validasi tetap sama.
 
-- **Interface MODEL**, yaitu struktur data/entity yang merepresentasikan resource; dan
-- **Rules per property**, yaitu aturan pada level masing-masing field (misalnya tipe data, wajib/opsional, validasi, format, relasi, dan batasan lainnya).
+## 30. Contract Query
 
-Berdasarkan kedua definisi tersebut, Loom menghasilkan operasi CRUD dasar (Create, Read, Update, Delete) secara otomatis, tanpa penulisan ulang logic yang berulang untuk setiap resource baru.
+Loom menyediakan contract query yang serupa dengan ORM pada umumnya. Sembilan method yang tersedia dirangkum pada Tabel 4.
 
-## 30. Tujuan Pengembangan
+*Tabel 4. Contract query Loom*
 
-Tujuan pengembangan Loom adalah:
+| Operasi | Method |
+|---|---|
+| Create | `create`, `createAll` |
+| Read | `find`, `findOne`, `findById` |
+| Update | `updateById`, `updateAll` |
+| Delete | `deleteById`, `deleteAll` |
 
-- mempercepat proses scaffolding API baru;
-- mengurangi duplikasi logic CRUD antar-resource;
-- menstandarkan cara mendefinisikan validasi dan rules pada level property;
-- memisahkan definisi "apa data ini" dari "bagaimana data diakses"; dan
-- menjadikan penambahan resource baru semudah mendefinisikan interface model.
+## 31. Komponen, Database, dan Technology Stack
 
-## 31. Technology Stack
+Implementasi inti berada pada berkas `all.ts` dengan komponen utama berupa field descriptor, Model, adapter, registry, dan `defineLoom`. Akses ke database dilakukan melalui adapter. Database yang saat ini didukung adalah:
 
-**Stack utama:** TypeScript; Hono sebagai framework utama; Zod sebagai schema dan validator; dan MongoDB sebagai database.
+- Memori; dan
+- JSON file.
 
-**Stack alternatif yang dieksplorasi:** Go dan MongoDB.
-
-Eksplorasi kedua stack ini memungkinkan perbandingan trade-off antara kecepatan pengembangan (TypeScript dan Bun) dan performa atau efisiensi runtime (Go), dengan tetap mempertahankan MongoDB sebagai database pada kedua pendekatan.
+Pengembangan berikutnya direncanakan untuk mendukung SQLite dan PostgreSQL. Seluruh implementasi ditulis dengan TypeScript, tanpa teknologi pendukung lain.
 
 ## 32. Relevansi dengan Pengalaman Profesional
 
